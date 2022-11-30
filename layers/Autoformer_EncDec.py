@@ -148,10 +148,10 @@ class DecoderLayer(nn.Module):
         residual_trend = trend1 + trend2 + trend3
 
         # update by Dale
-        # residual_trend = residual_trend + self.dropout(self.self_attention(
-        #     residual_trend, residual_trend, residual_trend,
-        #     attn_mask=x_mask
-        # )[0])
+        residual_trend = residual_trend + self.dropout(self.self_attention(
+            residual_trend, residual_trend, residual_trend,
+            attn_mask=x_mask
+        )[0])
 
         residual_trend = self.projection(residual_trend.permute(0, 2, 1)).transpose(1, 2)
         return x, residual_trend
